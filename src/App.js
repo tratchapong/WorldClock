@@ -1,26 +1,79 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Clock from './Clock'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      timezone : "Asia/Bangkok",
+      children : [],
+     }
+    // this.addClock = this.addClock.bind(this)
+  }
+  
+  showKey = (ckey) => () => {
+    console.log('From Showkey method..')
+    console.log(ckey)
+  }
+
+  removeClock = (ckey) => () => {
+    const updateChildren = [...this.state.children]
+    // updateChildren.forEach( x => console.log(x.props))
+    let del_idx = updateChildren.findIndex( x => x.props.ckey === ckey)
+    console.log(del_idx)
+    this.setState({
+      children : updateChildren.filter( (x,i) => del_idx !== i )
+    })
+  }
+
+  addClock = () => {
+    // console.log(this)
+    let ckey = new Date().getTime()
+    this.setState({
+      children : [...this.state.children, 
+          <Clock 
+            key={ckey} 
+            ckey={ckey}
+            // number={this.state.children[this.state.children.length-1] + 1}
+            cn="jumbotron bg-primary text-white w-75 mx-auto"
+            timezone={this.state.timezone}
+            showKey={this.showKey(ckey)}
+            removeClock={this.removeClock(ckey)}
+          />
+        ],
+    })
+  }
+
+  delLastClock = () => {
+    const updateChildren = [...this.state.children]
+    console.log(updateChildren)
+    updateChildren.pop()
+    this.setState({
+      children : updateChildren
+    })
+  }
+
+  
+  render() { 
+    return ( 
+      <>
+        <h1 className="jumbotron text-center w-75 mx-auto">World Clock <br /> 
+
+        </h1>
+            
+            {this.state.children.map( (item,idx) => {
+              console.log(item.type.name)
+              return item 
+            }
+              )}
+          <div className="jumbotron text-center w-75 mx-auto">
+            <button className="btn btn-success" onClick={this.addClock}>Add Clock</button> 
+            <button className="btn btn-danger" onClick={this.delLastClock}>Del Clock</button>
+          </div>
+          
+      </>
+     );
+  }
 }
 
 export default App;
