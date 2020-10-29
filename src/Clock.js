@@ -42,16 +42,13 @@ class Clock extends Component {
         <div className={this.props.cn}>
           <h1> {this.props.number} {this.state.timezone}</h1>
           <h1 className="bg-warning rounded text-center" style={{padding: "20px", margin:"20px"}}>{this.state.date}</h1>
-          <select name="timezone" onChange={this.changeTimezone} width="30">
-            {this.timezone_list.map( (item,idx) => {
-             return ( item !== this.props.timezone ? 
-               <option key={idx} value={item} > {item} </option>
-               :
-               <option key={idx} defaultValue={item} selected>  {item} </option>
+          <select className="custom-select w-50" onChange={this.changeTimezone} defaultValue={this.props.timezone} >
+            {this.timezone_list.map( (item,idx) =>  ( 
+               <option key={idx} value={item} >  {item} </option>
              ) 
-            })}
+            )}
           </select>
-          <button onClick={this.delClock}>Delete</button>
+          <button className="btn btn-danger m-1" onClick={this.delClock}>Delete</button>
         </div>
      );
   }

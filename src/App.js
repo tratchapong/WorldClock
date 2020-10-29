@@ -34,7 +34,6 @@ class App extends Component {
           <Clock 
             key={ckey} 
             ckey={ckey}
-            // number={this.state.children[this.state.children.length-1] + 1}
             cn="jumbotron bg-primary text-white w-75 mx-auto"
             timezone={this.state.timezone}
             showKey={this.showKey(ckey)}
@@ -57,15 +56,10 @@ class App extends Component {
   render() { 
     return ( 
       <>
-        <h1 className="jumbotron text-center w-75 mx-auto">World Clock <br /> 
-
-        </h1>
+        <h1 className="jumbotron text-center w-75 mx-auto bg-success text-white">World Clock </h1>
             
-            {this.state.children.map( (item,idx) => {
-              console.log(item.type.name)
-              return item 
-            }
-              )}
+            {this.state.children.map( (item,idx) => item )}
+
           <div className="jumbotron text-center w-75 mx-auto">
             <button className="btn btn-success" onClick={this.addClock}>Add Clock</button> 
             <button className="btn btn-danger" onClick={this.delLastClock}>Del Clock</button>
