@@ -56,7 +56,7 @@ class App extends Component {
   render() { 
     return ( 
       <>
-        <h1 className="jumbotron text-center w-75 mx-auto bg-success text-white">World Clock </h1>
+        <h1 className="jumbotron text-center w-75 mx-auto bg-info text-white">World Clock(RT)</h1>
             
             {this.state.children.map( (item,idx) => item )}
 
