@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Clock extends Component {
+class MyClock extends Component {
   constructor(props) {
     super(props);
     // let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
@@ -54,4 +54,4 @@ class Clock extends Component {
   }
 }
 
-export default Clock
+export default MyClock

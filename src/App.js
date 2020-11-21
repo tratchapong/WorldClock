@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Clock from './Clock'
+import MyClock from './MyClock'
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class App extends Component {
     let ckey = new Date().getTime()
     this.setState({
       children : [...this.state.children, 
-          <Clock 
+          <MyClock 
             key={ckey} 
             ckey={ckey}
             cn="jumbotron bg-primary text-white w-75 mx-auto"
