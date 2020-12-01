@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AnalogClock from 'analog-clock-react';
 
 class MyClock extends Component {
   constructor(props) {
@@ -8,7 +9,11 @@ class MyClock extends Component {
     this.options = { dateStyle: 'full', timeStyle: 'medium' }
     this.state = { 
       date : new Date().toLocaleString("TH", {...this.options, timeZone: this.props.timezone}),
-      timezone : this.props.timezone
+      dateAnalog : new Date(),
+      timezone : this.props.timezone,
+      seconds : new Date().getSeconds(),
+      minutes : new Date().getMinutes(),
+      hours : new Date().getHours()
      }
     //  this.changeTimezone = this.changeTimezone.bind(this)
   }
@@ -23,13 +28,24 @@ class MyClock extends Component {
 
   updateTime() {
     let d = new Date().toLocaleString("TH", {...this.options, timeZone: this.state.timezone})
+    let dd = new Date()
     this.setState(
-      { date : d }
+      { 
+        date : d,
+        seconds : new Date().getSeconds(),
+        minutes : new Date().getMinutes(),
+        hours : new Date().getHours()
+      }
     )
   }
 
   changeTimezone = (e) =>  {
-    this.setState({timezone : e.target.value})
+    this.setState({
+      timezone : e.target.value,
+      seconds : new Date().getSeconds(),
+      minutes : new Date().getMinutes(),
+      hours : new Date().getHours() 
+    })
   }
 
   delClock = (e) => {
@@ -38,10 +54,35 @@ class MyClock extends Component {
   }
 
   render() { 
+
+    let optionsAnalog = {
+      useCustomTime: true,
+      width: "300px",
+      border: true,
+      borderColor: "#2e2e2e",
+      baseColor: "#17a2b8",
+      centerColor: "#459cff",
+      centerBorderColor: "#fff",
+      handColors: {
+        second: "#d81c7a",
+        minute: "#fff",
+        hour: "#fff"
+      },
+      seconds : this.state.seconds,
+      minutes : this.state.minutes,
+      hours : this.state.hours
+  };
+    
+    // console.log(typeof(dd) )
+    console.log(this.state.seconds)
+    console.log(this.state.minutes)
+    console.log(this.state.hours)
+
     return ( 
         <div className={this.props.cn}>
           <h1> {this.props.number} {this.state.timezone}</h1>
           <h1 className="bg-warning rounded text-center" style={{padding: "20px", margin:"20px"}}>{this.state.date}</h1>
+          <AnalogClock { ...optionsAnalog } />
           <select className="custom-select w-50" onChange={this.changeTimezone} defaultValue={this.props.timezone} >
             {this.timezone_list.map( (item,idx) =>  ( 
                <option key={idx} value={item} >  {item} </option>
